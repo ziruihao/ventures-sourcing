@@ -6,14 +6,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def affinity(fileDir):
+def affinity_check(fileDir):
     AFFINITY_API_KEY = os.getenv("AFFINITY_API_KEY")
     headers = {
         'Authorization': 'Basic ' + AFFINITY_API_KEY
     }
     newCount = 0
     totalCount = 0
-    with open(fileDir + '.csv', mode="r") as inputFile:
+    with open(fileDir, mode="r") as inputFile:
         with open(fileDir + '-affinity.csv', mode="w") as outputFile:
             reader = csv.reader(inputFile, delimiter=',', quotechar='"')
             writer = csv.writer(outputFile, delimiter=',', quotechar='"')
