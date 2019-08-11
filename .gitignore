@@ -1,2 +1,4 @@
 .DS_Store
 *.code-workspace
+.vscode/settings.json
+__pycache__
