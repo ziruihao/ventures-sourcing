@@ -30,16 +30,20 @@ def upload_file():
          filename = secure_filename(file.filename)
          filePath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
          file.save(filePath)
-         return send_file(affinity_check(email_scrape(filePath)))
+         return send_file(affinity_check(filePath))
          # return redirect(request.url)
    return '''
    <!doctype html>
-   <title>Upload new File</title>
-   <h1>Upload new File</h1>
-   <form method=post enctype=multipart/form-data>
-     <input type=file name=file>
-     <input type=submit value=Upload>
-   </form>
+   <head>
+    <title>Upload new File</title>
+    </head>
+   <body>
+    <h1>Affinity Checker</h1>
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=file>
+      <input type=submit value=Upload>
+    </form>
+   </body>
    '''
 
 if __name__ == '__main__':
