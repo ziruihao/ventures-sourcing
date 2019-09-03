@@ -1,5 +1,5 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, send_file
+from flask import Flask, flash, request, redirect, url_for, send_file, render_template
 from werkzeug.utils import secure_filename
 from affinitychecker import affinity_check
 from emailscraper import email_check
@@ -33,19 +33,7 @@ def upload_file():
          file.save(filePath)
          return send_file(affinity_check(email_check((filePath))))
          # return redirect(request.url)
-   return '''
-   <!doctype html>
-   <head>
-    <title>Upload new File</title>
-    </head>
-   <body>
-    <h1>Affinity Checker</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-   </body>
-   '''
+   return render_template('base.html')
 
 if __name__ == '__main__':
    app.debug = True
