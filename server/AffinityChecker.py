@@ -8,16 +8,16 @@ load_dotenv()
 
 def affinity_check(fileDir):
     AFFINITY_API_KEY = os.getenv("AFFINITY_API_KEY")
-    print(AFFINITY_API_KEY)
     headers = {
         'Authorization': 'Basic ' + AFFINITY_API_KEY
     }
     newCount = 0
     totalCount = 0
     with open(fileDir, mode="r") as inputFile:
-        with open(fileDir + '-affinity.csv', mode="w") as outputFile:
+        with open('./data/affinity.csv', mode="w") as outputFile:
             reader = csv.reader(inputFile, delimiter=',', quotechar='"')
             writer = csv.writer(outputFile, delimiter=',', quotechar='"')
+            writer.writerow(['Name','Email', 'Confidence', 'Status'])
             for row in reader:
                 companyDomain = row[0].replace('https://', '').replace('http://','').replace('www.', '')
                 print(companyDomain)
@@ -44,4 +44,4 @@ def affinity_check(fileDir):
                         writer.writerow(row)
                         newCount = newCount + 1
 
-    return (fileDir + '-affinity.csv')
+    return './data/affinity.csv'

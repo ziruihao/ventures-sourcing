@@ -2,6 +2,7 @@ import os
 from flask import Flask, flash, request, redirect, url_for, send_file
 from werkzeug.utils import secure_filename
 from affinitychecker import affinity_check
+from emailscraper import email_check
 
 UPLOAD_FOLDER = './data'
 ALLOWED_EXTENSIONS = {'csv'}
@@ -30,7 +31,7 @@ def upload_file():
          filename = secure_filename(file.filename)
          filePath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
          file.save(filePath)
-         return send_file(affinity_check(filePath))
+         return send_file(affinity_check(email_check((filePath))))
          # return redirect(request.url)
    return '''
    <!doctype html>
