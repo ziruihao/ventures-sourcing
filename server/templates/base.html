@@ -6,14 +6,36 @@
     </head>
     <body>
         <div id="greeting">
-            <h1>Affinity Checker</h1>
+            <h1>Sourcing Helper</h1>
             <p>Upload a .csv with the first column as startup names!</p>
         </div>
         <div id="interact">
-                <form method=post enctype=multipart/form-data>
-                    <input type=file name=file>
-                    <input type=submit value=Upload>
-                </form>
+            <form method=post enctype=multipart/form-data>
+                <input id="choose-file" type=file name=file data-multiple-caption="{count} files selected" multiple> 
+                <label for="choose-file">Choose a file</label>
+                <input id="upload-file" type=submit value=Upload>
+            </form>
         </div>
     </body>
+    <script>
+        var inputs = document.querySelectorAll( '#choose-file' );
+        Array.prototype.forEach.call( inputs, function( input )
+        {
+            var label	 = input.nextElementSibling,
+                labelVal = label.innerHTML;
+
+            input.addEventListener( 'change', function( e )
+            {
+                var fileName = '';
+                if ( this.files && this.files.length > 1 )
+                    fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+                else
+                    fileName = e.target.value.split('\\').pop();
+                if ( fileName )
+                    label.innerHTML = fileName;
+                else
+                    label.innerHTML = labelVal;
+            });
+        });
+    </script>
 </html>
